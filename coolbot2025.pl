@@ -1,5 +1,5 @@
-#!/usr/bin/env perl, исполняемый файл, это переименованный perl_bot_tbb2_ex.pl
-
+#!/usr/bin/env perl
+ 
 use strict;
 use warnings;
 use FindBin;
@@ -8,7 +8,7 @@ use lib "$FindBin::Bin/lib";  # Добавляем путь к библиоте�
 use MyApp::Coolbot;
 
 # Конфигурация
-my $token = '7875983729:AAH7Cs7B304_-6K8CrADjOI-pfxlP3O8nXw';
+my $token = '8474961966:AAHuWDs8BCJXyve2YwAbg-M4PztGg_7SeFk';
 
 # Создаем и запускаем бота
 my $bot = MyApp::Coolbot->new(
