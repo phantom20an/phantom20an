@@ -1,6 +1,6 @@
 # разделение файла на части, 1ч. Библиотека
 
-package MyApp::Coolbot;
+package Coolbot;
 use Mojo::Base 'Telegram::Bot::Brain';
 
 # Токен теперь будет передаваться при создании объекта
