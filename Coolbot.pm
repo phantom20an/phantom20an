@@ -39,12 +39,12 @@ sub respond_to_messages {
         warn "Chat ID: $chat_id\n";
         
         # Автоответ на сообщения
-        if ($text =~ /^\/start/) {
+        if ($text =~ /^start/) {
             $self->bot->sendMessage(
                 chat_id => $chat_id,
                 text    => "Привет! Я бот. Буду отправлять уведомления каждые 10 минут."
             );
-        } elsif ($text =~ /^\/status/) {
+        } elsif ($text =~ /^status/) {
             $self->bot->sendMessage(
                 chat_id => $chat_id,
                 text    => "Бот работает нормально. Время: " . localtime()
