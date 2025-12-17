@@ -16,7 +16,7 @@ sub timed_task {
     my $self = shift;
     
     # Просто логируем выполнение задачи
-    warn "🕒 Timed task executed at: " . localtime() . "\n";
+    warn "Timed task executed at: " . localtime() . "\n";
     
     # Можно делать другие действия без chat_id:
     # - Проверять API других сервисов
