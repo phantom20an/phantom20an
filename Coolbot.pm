@@ -34,7 +34,7 @@ sub respond_to_messages {
         my $from = $message->from;
         my $username = $from ? $from->username : 'unknown';
         
-        warn "Получено сообщение от @$username: $text\n";
+        warn "Получено сообщение от \@$username: $text\n";
         warn "Chat ID: $chat_id\n";
         
         # Автоответ на сообщения
