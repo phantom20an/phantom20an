@@ -26,10 +26,9 @@ sub timed_task {
 }
 
 sub respond_to_messages {
-    my ($self, $update) = @_;
+    my ($self, $message) = @_;
     # Здесь можно получать chat_id из входящих сообщений
-    my $message;
-    if ($message) {
+        if ($message) {
         my $chat_id = $message->chat->id;
         my $text = $message->text || '';
         my $from = $message->from;
