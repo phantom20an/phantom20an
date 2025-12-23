@@ -39,7 +39,7 @@ sub respond_to_messages {
         
         # Автоответ на сообщения
         if ($text =~ /^start/) {
-            $self->bot->sendMessage(
+            $self->sendMessage(
                 chat_id => $chat_id,
                 text    => "Привет! Я бот. Буду отправлять уведомления каждые 10 минут."
             );
