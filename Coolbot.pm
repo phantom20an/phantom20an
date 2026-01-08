@@ -44,7 +44,7 @@ sub respond_to_messages {
                 text    => "Привет! Я бот. Буду отправлять уведомления каждые 10 минут."
             );
         } elsif ($text =~ /^status/) {
-            $self->bot->sendMessage(
+            $self->sendMessage(
                 chat_id => $chat_id,
                 text    => "Бот работает нормально. Время: " . localtime()
             );
