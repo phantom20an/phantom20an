@@ -1,4 +1,4 @@
-
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -13,7 +13,7 @@ local $SIG{__WARN__} = sub {
 
 # Создаем бота
 my $bot = Telegram::Bot::Brain->new(
-    token => '7875983729:AAH7Cs7B304_-6K8CrADjOI-pfxlP3O8nXw',  
+    token => '7875983729:AAH7Cs7B304_-6K8CrADjOI-pfxlP3O8nXw',
 );
 
 # Вместо использования встроенных обработчиков, реализуем свою логику
@@ -30,13 +30,13 @@ while (1) {
             }
         );
     };
-    
+
     unless ($updates && $updates->is_success) {
         warn "Ошибка получения updates: " . ($updates ? $updates->status_line : $@);
         sleep 5;
         next;
     }
-    
+
     my $data = eval { decode_json($updates->decoded_content) };
     unless ($data && $data->{ok}) {
         warn "Ошибка API: " . ($data->{description} || 'Unknown error');
@@ -87,21 +87,21 @@ while (1) {
                 });
             }
         }
-        
+
         # Обработка callback_query
         if (my $callback = $update->{callback_query}) {
             my $data = $callback->{data};
             my $chat_id = $callback->{message}{chat}{id};
-            
+
             print "Callback: $data\n";
-            
+
             $bot->answerCallbackQuery({
                 callback_query_id => $callback->{id},
                 text              => "Обработано: $data"
             });
         }
     }
-    
+
     # Небольшая пауза между запросами
     sleep 1;
 }
