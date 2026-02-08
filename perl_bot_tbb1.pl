@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use Telegram::Bot::Brain;
-use Mojo::Base 'Telegram::Bot::Braim'
+use Mojo::Base 'Telegram::Bot::Braim';
 use JSON;
 
 # Отключаем предупреждение о init
