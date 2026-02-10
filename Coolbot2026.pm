@@ -1,7 +1,6 @@
 package Coolbot2026;
 use Mojo::Base 'Telegram::Bot::Brain';
 
-# Токен теперь будет передаваться при создании объекта
 has 'token';
 
 sub init {
@@ -12,16 +11,12 @@ sub init {
 
 sub timed_task {
     my $self = shift;
-
-    # Просто логируем выполнение задачи
     warn "Timed task executed at: " . localtime() . "\n";
 }
 
 sub respond_to_messages {
+    # ИСПРАВЛЕНО: получаем $message напрямую, а не $update
     my ($self, $message) = @_;
-
-    # Извлекаем сообщение из обновления
-    my $message = $update->message;
 
     if ($message) {
         my $chat_id = $message->chat->id;
@@ -29,28 +24,24 @@ sub respond_to_messages {
         my $from = $message->from;
         my $username = $from ? $from->username : 'unknown';
 
-        # ИСПРАВЛЕНО: экранирован символ @
-        warn "Получено сообщение от \@" . $username . ": $text\n";
+        warn "Сообщение от пользователя $username: $text\n";
         warn "Chat ID: $chat_id\n";
 
-        # Автоответ на сообщения
         if ($text =~ /^\/start/) {
             # Создаем клавиатуру с 4 кнопками
             my $keyboard = {
                 keyboard => [
-                    # Первая строка кнопок
                     [
                         { text => '📊 Статус' },
                         { text => '🆘 Помощь' }
                     ],
-                    # Вторая строка кнопок
                     [
                         { text => '⚙️ Настройки' },
                         { text => '📞 Контакты' }
                     ]
                 ],
-                resize_keyboard => 1,     # Автоматически менять размер
-                one_time_keyboard => 0    # Клавиатура остается после нажатия
+                resize_keyboard => 1,
+                one_time_keyboard => 0
             };
 
             $self->bot->sendMessage({
@@ -96,13 +87,12 @@ sub respond_to_messages {
             });
 
         } elsif ($text =~ /^📞 Контакты/) {
-            # ИСПРАВЛЕНО: экранирован @ в email и username
             $self->bot->sendMessage({
                 chat_id => $chat_id,
                 text => "<b>📞 Контактная информация:</b>\n\n" .
-                       "• Поддержка: \@" . "support_username\n" .  # Разделили строку
+                       "• Поддержка: @support_username\n" .
                        "• Сайт: example.com\n" .
-                       "• Email: bot" . "\@" . "example.com\n\n" .  # Разделили @
+                       "• Email: bot@example.com\n\n" .
                        "<i>Пишите по любым вопросам!</i>",
                 parse_mode => 'HTML'
             });
