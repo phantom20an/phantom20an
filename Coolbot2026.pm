@@ -18,7 +18,7 @@ sub timed_task {
 }
 
 sub respond_to_messages {
-    my ($self, $update) = @_;
+    my ($self, $message) = @_;
 
     # Извлекаем сообщение из обновления
     my $message = $update->message;
