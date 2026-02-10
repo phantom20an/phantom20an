@@ -15,7 +15,6 @@ sub timed_task {
 }
 
 sub respond_to_messages {
-    # ИСПРАВЛЕНО: получаем $message напрямую, а не $update
     my ($self, $message) = @_;
 
     if ($message) {
@@ -87,12 +86,13 @@ sub respond_to_messages {
             });
 
         } elsif ($text =~ /^📞 Контакты/) {
+            # Самый простой вариант - убрать @ перед username
             $self->bot->sendMessage({
                 chat_id => $chat_id,
                 text => "<b>📞 Контактная информация:</b>\n\n" .
-                       "• Поддержка: @support_username\n" .
+                       "• Поддержка: support_username\n" .    # Без @
                        "• Сайт: example.com\n" .
-                       "• Email: bot@example.com\n\n" .
+                       "• Email: bot@example.com\n\n" .       # @ внутри слова безопасен
                        "<i>Пишите по любым вопросам!</i>",
                 parse_mode => 'HTML'
             });
