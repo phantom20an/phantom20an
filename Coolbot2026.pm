@@ -18,7 +18,7 @@ sub timed_task {
 }
 
 sub respond_to_messages {
-    my ($self, $update) = @_;  # ← Исправлено: получаем $update, а не $message
+    my ($self, $update) = @_;
 
     # Извлекаем сообщение из обновления
     my $message = $update->message;
@@ -29,11 +29,12 @@ sub respond_to_messages {
         my $from = $message->from;
         my $username = $from ? $from->username : 'unknown';
 
-        warn "Получено сообщение от \@$username: $text\n";
+        # ИСПРАВЛЕНО: экранирован символ @
+        warn "Получено сообщение от \@" . $username . ": $text\n";
         warn "Chat ID: $chat_id\n";
 
         # Автоответ на сообщения
-        if ($text =~ /^\/start/) {  # ← Добавлен слэш перед start
+        if ($text =~ /^\/start/) {
             # Создаем клавиатуру с 4 кнопками
             my $keyboard = {
                 keyboard => [
@@ -52,15 +53,15 @@ sub respond_to_messages {
                 one_time_keyboard => 0    # Клавиатура остается после нажатия
             };
 
-            $self->bot->sendMessage({  # ← Исправлено: $self->bot->sendMessage
+            $self->bot->sendMessage({
                 chat_id => $chat_id,
                 text => "Привет! Я бот. Выберите действие:",
                 reply_markup => $keyboard,
                 parse_mode => 'HTML'
             });
 
-        } elsif ($text =~ /^\/status|^📊 Статус/) {  # ← Обработка кнопки и команды
-            $self->bot->sendMessage({  # ← Исправлено: $self->bot->sendMessage
+        } elsif ($text =~ /^\/status|^📊 Статус/) {
+            $self->bot->sendMessage({
                 chat_id => $chat_id,
                 text => "Бот работает нормально. Время: " . localtime(),
                 parse_mode => 'HTML'
@@ -95,12 +96,13 @@ sub respond_to_messages {
             });
 
         } elsif ($text =~ /^📞 Контакты/) {
+            # ИСПРАВЛЕНО: экранирован @ в email и username
             $self->bot->sendMessage({
                 chat_id => $chat_id,
                 text => "<b>📞 Контактная информация:</b>\n\n" .
-                       "• Поддержка: @username\n" .
+                       "• Поддержка: \@" . "support_username\n" .  # Разделили строку
                        "• Сайт: example.com\n" .
-                       "• Email: bot@example.com\n\n" .
+                       "• Email: bot" . "\@" . "example.com\n\n" .  # Разделили @
                        "<i>Пишите по любым вопросам!</i>",
                 parse_mode => 'HTML'
             });
